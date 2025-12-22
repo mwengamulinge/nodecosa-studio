@@ -42,10 +42,10 @@ const ContactForm = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
             Ready to Innovate?
           </h2>
-          <p className="text-xl text-gray-400">
+          <p className="text-xl text-gray-600">
             Tell us about your project. We usually respond within 24 hours.
           </p>
         </motion.div>
@@ -55,13 +55,13 @@ const ContactForm = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="glass-effect rounded-2xl p-8 md:p-12"
+          className="glass-card rounded-3xl p-8 md:p-12"
         >
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Name
               </label>
@@ -76,10 +76,10 @@ const ContactForm = () => {
                 type="text"
                 id="name"
                 placeholder="John Doe"
-                className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg focus:outline-none focus:border-primary-500 transition-colors text-white placeholder-gray-500"
+                className="w-full px-4 py-3 glass-effect rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-gray-800 placeholder-gray-500"
               />
               {errors.name && (
-                <p className="mt-1 text-sm text-red-400">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.name.message}
                 </p>
               )}
@@ -88,7 +88,7 @@ const ContactForm = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Email
               </label>
@@ -103,10 +103,10 @@ const ContactForm = () => {
                 type="email"
                 id="email"
                 placeholder="john@company.com"
-                className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg focus:outline-none focus:border-primary-500 transition-colors text-white placeholder-gray-500"
+                className="w-full px-4 py-3 glass-effect rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-gray-800 placeholder-gray-500"
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-400">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.email.message}
                 </p>
               )}
@@ -115,7 +115,7 @@ const ContactForm = () => {
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Message
               </label>
@@ -130,10 +130,10 @@ const ContactForm = () => {
                 id="message"
                 rows={5}
                 placeholder="Project details..."
-                className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg focus:outline-none focus:border-primary-500 transition-colors text-white placeholder-gray-500 resize-none"
+                className="w-full px-4 py-3 glass-effect rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-gray-800 placeholder-gray-500 resize-none"
               />
               {errors.message && (
-                <p className="mt-1 text-sm text-red-400">
+                <p className="mt-1 text-sm text-red-600">
                   {errors.message.message}
                 </p>
               )}
@@ -142,7 +142,7 @@ const ContactForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full px-6 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium text-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2"
+              className="w-full px-6 py-4 btn-primary text-white rounded-2xl font-medium text-lg transition-all duration-200 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2"
             >
               {isSubmitting ? (
                 <>
@@ -161,7 +161,7 @@ const ContactForm = () => {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center space-x-2 text-green-400 bg-green-400/10 px-4 py-3 rounded-lg"
+                className="flex items-center space-x-2 text-green-700 glass-effect px-4 py-3 rounded-xl"
               >
                 <CheckCircle className="w-5 h-5" />
                 <span>Message sent successfully! We will be in touch soon.</span>
@@ -172,7 +172,7 @@ const ContactForm = () => {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center space-x-2 text-red-400 bg-red-400/10 px-4 py-3 rounded-lg"
+                className="flex items-center space-x-2 text-red-700 glass-effect px-4 py-3 rounded-xl"
               >
                 <AlertCircle className="w-5 h-5" />
                 <span>
