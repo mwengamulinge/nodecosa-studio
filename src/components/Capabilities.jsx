@@ -26,10 +26,10 @@ const Capabilities = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
               Engineered for Scale
             </h2>
-            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               We utilize the latest stacks to ensure your infrastructure is
               future-proof, secure, and lightning fast. Our focus is on
               automation and efficiency.
@@ -45,10 +45,10 @@ const Capabilities = () => {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="flex items-center space-x-3"
                 >
-                  <div className="w-10 h-10 bg-primary-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="w-5 h-5 text-primary-400" />
+                  <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-500/30">
+                    <CheckCircle2 className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-lg text-gray-300">
+                  <span className="text-lg text-gray-700">
                     {feature.label}
                   </span>
                 </motion.div>
@@ -73,12 +73,12 @@ const Capabilities = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="glass-effect rounded-xl p-8 hover:bg-dark-800/70 transition-all duration-300 hover:scale-105 cursor-pointer group"
+                  className="glass-card rounded-2xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer group"
                 >
-                  <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary-500/20 transition-colors duration-300">
-                    <Icon className="w-6 h-6 text-primary-400" />
+                  <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary-500/30">
+                    <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold">{spec}</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">{spec}</h3>
                 </motion.div>
               )
             })}
