@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const location = useLocation()
+  const isHomePage = location.pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,10 +18,23 @@ const Navbar = () => {
   }, [])
 
   const navLinks = [
-    { name: 'Services', href: '#services' },
-    { name: 'Capabilities', href: '#capabilities' },
-    { name: 'Work', href: '#work' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Capabilities', href: '/#capabilities' },
+    { name: 'Work', href: '/#work' },
+    { name: 'Insights', href: '/blog' },
   ]
+
+  const handleNavClick = (href) => {
+    setIsMobileMenuOpen(false)
+    
+    // If it's a hash link and we're on the home page, scroll to section
+    if (href.startsWith('/#') && isHomePage) {
+      const element = document.querySelector(href.substring(1))
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
 
   return (
     <nav
@@ -28,28 +44,39 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <a href="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <span className="text-2xl font-bold">
               NODE<span className="text-gradient">COSA</span>
             </span>
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
-              >
-                {link.name}
-              </a>
+              link.href.startsWith('/') && !link.href.startsWith('/#') ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
+                >
+                  {link.name}
+                </a>
+              )
             ))}
-            <a
-              href="#contact"
+            <Link
+              to="/#contact"
               className="px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary-500/50"
             >
               Start Project
-            </a>
+            </Link>
           </div>
 
           <button
@@ -68,22 +95,33 @@ const Navbar = () => {
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith('/') && !link.href.startsWith('/#') ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
+                    onClick={() => handleNavClick(link.href)}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
-              <a
-                href="#contact"
+              <Link
+                to="/#contact"
                 className="px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium text-center transition-all duration-200"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Start Project
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
