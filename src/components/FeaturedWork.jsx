@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
-import { Users, FileText, Target, ExternalLink } from 'lucide-react'
+import { Zap, Clock, Shield, ExternalLink } from 'lucide-react'
 
 const FeaturedWork = () => {
   const stats = [
-    { icon: Users, value: '10K+', label: 'Users' },
-    { icon: FileText, value: '500K+', label: 'Words' },
-    { icon: Target, value: '99%', label: 'Bypass' },
+    { icon: Zap, value: '<800ms', label: 'Avg Response' },
+    { icon: Clock, value: '6 Weeks', label: 'To Production' },
+    { icon: Shield, value: '99.9%', label: 'Uptime' },
   ]
 
   return (
@@ -34,12 +34,12 @@ const FeaturedWork = () => {
           >
             <h2 className="text-5xl md:text-6xl font-bold mb-4">254labs</h2>
             <h3 className="text-2xl text-primary-400 font-semibold mb-6">
-              AI Humanizer SaaS Platform
+              From Concept to Production-Ready in 6 Weeks
             </h3>
             <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-              We architected and built 254labs, a leading platform trusted by
-              thousands to process AI-generated text. Focus was on
-              high-throughput data processing and undetectability algorithms.
+              We architected a full-stack AI content platform with real-time 
+              processing, secure API infrastructure, and integrated payment 
+              systems—built to scale from day one with sub-second response times.
             </p>
 
             <div className="grid grid-cols-3 gap-6 mb-8">
@@ -72,7 +72,7 @@ const FeaturedWork = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 px-6 py-3 glass-effect rounded-lg hover:bg-dark-800/70 transition-all duration-300 group"
             >
-              <span className="font-medium">View Client</span>
+              <span className="font-medium">View Live Product</span>
               <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
           </motion.div>
@@ -98,7 +98,7 @@ const FeaturedWork = () => {
               </div>
 
               <div className="mt-6 flex flex-wrap gap-2">
-                {['React', 'Next.js', 'Supabase', 'Gemini API', 'Paystack'].map(
+                {['React', 'Supabase', 'Gemini API', 'Paystack', 'Vercel'].map(
                   (tech, index) => (
                     <span
                       key={index}
