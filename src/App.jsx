@@ -8,7 +8,7 @@ import Blog from './components/Blog'
 import ContactForm from './components/ContactForm'
 import Footer from './components/Footer'
 import BlogPage from './pages/BlogPage'
-import BlogPostPage from './pages/BlogPostPage'
+import Blogpostpage from './pages/Blogpostpage'
 
 function HomePage() {
   return (
