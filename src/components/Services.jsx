@@ -1,25 +1,25 @@
 import { motion } from 'framer-motion'
-import { Code2, Smartphone, Server } from 'lucide-react'
+import { GitBranch, Globe, Server } from 'lucide-react'
 
 const Services = () => {
   const services = [
     {
-      icon: Code2,
-      title: 'API Integrations',
+      icon: Globe,
+      title: 'High-Conversion User Experiences',
       description:
-        'Seamless connection between complex systems and third-party data sources.',
+        'We build web products that load instantly, rank on SEO, and turn visitors into customers.',
     },
     {
-      icon: Smartphone,
-      title: 'Mobile Apps',
+      icon: GitBranch,
+      title: 'Automated Business Growth',
       description:
-        'Native and cross-platform performance optimized for modern iOS and Android devices.',
+        'We build the bridges between your data and the world, eliminating manual work and human error.',
     },
     {
       icon: Server,
-      title: 'Backend Solutions',
+      title: 'Infrastructure That Never Sleeps',
       description:
-        'Robust server-side architectures designed for heavy scaling and security.',
+        'Robust, auto-scaling architecture designed for 99.9% uptime at any volume.',
     },
   ]
 
@@ -34,9 +34,12 @@ const Services = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Core Competencies
+            What You Get
           </h2>
-          <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full" />
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Enterprise-grade engineering without the enterprise timeline.
+          </p>
+          <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full mt-6" />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
