@@ -1,0 +1,71 @@
+## The Challenge
+
+When we set out to build 254labs, we knew the platform would need to handle unpredictable traffic spikes. Content creators don't work 9-to-5 — they publish when inspiration strikes, and their audiences engage in waves.
+
+Building for "it works on my machine" wasn't an option. We needed infrastructure that could scale from zero to thousands of concurrent requests without breaking a sweat.
+
+## The Architecture Decisions
+
+### 1. Edge-First Philosophy
+
+Every millisecond matters. We deployed on Vercel's edge network, putting our application as close to users as physically possible. The result? Sub-200ms time-to-first-byte globally.
+
+```javascript
+// Vercel edge config
+export const config = {
+  runtime: 'edge',
+  regions: ['iad1', 'sfo1', 'sin1', 'fra1'],
+}
+```
+
+### 2. Serverless Backend
+
+Traditional servers sit idle 90% of the time. We chose Supabase for our backend — PostgreSQL performance with automatic connection pooling and instant scaling.
+
+The key insight: **pay for what you use, not what you might need.**
+
+### 3. Smart Caching Strategy
+
+Not every request needs to hit the database. We implemented a three-tier caching strategy:
+
+- **Edge cache**: Static assets and frequently-accessed data
+- **Application cache**: User session data and preferences  
+- **Database cache**: Query result caching for expensive operations
+
+### 4. API Rate Limiting
+
+Protecting the system from abuse while maintaining a great user experience required careful balance:
+
+```javascript
+const rateLimiter = {
+  windowMs: 60 * 1000, // 1 minute
+  max: 30, // 30 requests per window
+  message: 'Please slow down and try again shortly.',
+}
+```
+
+## The Results
+
+After six weeks of development:
+
+- **&lt;800ms average response time** for content processing
+- **99.9% uptime** since launch
+- **Zero cold start issues** thanks to edge deployment
+- **Automatic scaling** — handled 10x traffic spikes without manual intervention
+
+## Key Takeaways
+
+1. **Start with constraints**: Knowing we needed sub-second responses shaped every decision
+2. **Embrace serverless**: The operational overhead savings are worth the architectural adjustments
+3. **Cache aggressively**: The fastest request is the one you don't make
+4. **Monitor everything**: You can't optimize what you don't measure
+
+## What's Next
+
+We're exploring WebSocket connections for real-time processing feedback and evaluating additional edge regions in South America and Africa.
+
+Building for scale isn't about handling millions of users on day one — it's about making architectural decisions that don't become roadblocks when growth happens.
+
+---
+
+*Want to discuss how these principles could apply to your project? [Get in touch](/contact).*
