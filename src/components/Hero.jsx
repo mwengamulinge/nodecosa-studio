@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight, Zap } from 'lucide-react'
 
 const Hero = () => {
   return (
@@ -40,9 +40,9 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
             className="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-effect mb-8"
           >
-            <Sparkles className="w-4 h-4 text-primary-400" />
+            <Zap className="w-4 h-4 text-primary-400" />
             <span className="text-sm font-medium text-gray-300">
-              Innovation Studio
+              Built for Scale
             </span>
           </motion.div>
 
@@ -52,8 +52,8 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
           >
-            Precision{' '}
-            <span className="text-gradient block">Engineering.</span>
+            Web Apps Built to{' '}
+            <span className="text-gradient block">Handle Millions.</span>
           </motion.h1>
 
           <motion.p
@@ -62,9 +62,9 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed"
           >
-            Nodecosa is a software development studio specializing in API
-            integrations, mobile applications, and backend automation. We build
-            the invisible backbone of the modern web.
+            We architect high-performance web platforms and seamless API 
+            integrations. Stop fighting technical debt and start shipping 
+            infrastructure that scales with your business.
           </motion.p>
 
           <motion.div
@@ -76,7 +76,7 @@ const Hero = () => {
               href="#contact"
               className="inline-flex items-center space-x-2 px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium text-lg transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-primary-500/50 group"
             >
-              <span>Work With Us</span>
+              <span>Get My Technical Roadmap</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
           </motion.div>
@@ -88,10 +88,10 @@ const Hero = () => {
             className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
           >
             {[
-              { label: 'Projects Delivered', value: '50+' },
-              { label: 'Active Clients', value: '30+' },
-              { label: 'Code Quality', value: '99%' },
-              { label: 'Uptime SLA', value: '99.9%' },
+              { label: 'Projects Shipped', value: '50+' },
+              { label: 'Happy Clients', value: '30+' },
+              { label: 'Avg. Load Time', value: '<1s' },
+              { label: 'Uptime Guarantee', value: '99.9%' },
             ].map((stat, index) => (
               <div
                 key={index}
