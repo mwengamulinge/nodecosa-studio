@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <a href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold">
+            <span className="text-2xl font-bold text-gray-800">
               NODE<span className="text-gradient">COSA</span>
             </span>
           </a>
@@ -39,21 +39,21 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
+                className="text-gray-700 hover:text-primary-600 transition-colors duration-200 font-medium"
               >
                 {link.name}
               </a>
             ))}
             <a
               href="#contact"
-              className="px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary-500/50"
+              className="px-6 py-2.5 btn-primary text-white rounded-xl font-medium transition-all duration-200 hover:scale-105"
             >
               Start Project
             </a>
           </div>
 
           <button
-            className="md:hidden text-gray-300 hover:text-white transition-colors"
+            className="md:hidden text-gray-700 hover:text-primary-600 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -64,14 +64,14 @@ const Navbar = () => {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden mt-4 glass-effect rounded-lg p-4"
+            className="md:hidden mt-4 glass-effect rounded-2xl p-4"
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
+                  className="text-gray-700 hover:text-primary-600 transition-colors duration-200 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -79,7 +79,7 @@ const Navbar = () => {
               ))}
               <a
                 href="#contact"
-                className="px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium text-center transition-all duration-200"
+                className="px-6 py-2.5 btn-primary text-white rounded-xl font-medium text-center transition-all duration-200"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Start Project
