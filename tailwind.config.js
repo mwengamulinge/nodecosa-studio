@@ -8,23 +8,15 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
         },
         dark: {
-          700: '#374151',
           800: '#1f2937',
           900: '#111827',
           950: '#0a0e1a',
-        },
+        }
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
