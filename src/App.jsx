@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import Services from './components/Services'
 import Capabilities from './components/Capabilities'
 import FeaturedWork from './components/FeaturedWork'
+import Blog from './components/Blog'
 import ContactForm from './components/ContactForm'
 import Footer from './components/Footer'
 
@@ -14,6 +15,7 @@ function App() {
       <Services />
       <Capabilities />
       <FeaturedWork />
+      <Blog />
       <ContactForm />
       <Footer />
     </div>
