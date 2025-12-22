@@ -1,0 +1,138 @@
+## What Technical Debt Actually Is
+
+Technical debt isn't bad code. It's the gap between what you built and what you should have built — accumulated over time through shortcuts, changing requirements, and honest mistakes.
+
+Some debt is intentional: shipping fast to validate an idea. Some is accidental: not knowing better at the time. All of it compounds.
+
+## The 2025 Reality
+
+The tools have changed. What was acceptable technical debt in 2020 is inexcusable in 2025:
+
+- **AI-assisted code review** catches patterns humans miss
+- **Infrastructure-as-code** eliminates "works on my machine" problems
+- **Type safety** is no longer optional (TypeScript won)
+- **Automated testing** is table stakes, not a luxury
+
+The bar has risen. Legacy debt that "wasn't that bad" now actively holds you back.
+
+## The Five Types of Technical Debt
+
+### 1. Architecture Debt
+
+The foundation is wrong. Monolith that should be services. Services that should be a monolith. Wrong database for your access patterns.
+
+**Cost**: Every feature takes 3x longer than it should.
+
+### 2. Dependency Debt
+
+Outdated packages. Security vulnerabilities. Breaking changes waiting to happen.
+
+```bash
+# This output should terrify you
+npm audit
+found 47 vulnerabilities (12 high, 3 critical)
+```
+
+**Cost**: Security breaches, forced emergency migrations.
+
+### 3. Testing Debt
+
+No tests. Wrong tests. Slow tests nobody runs.
+
+**Cost**: Fear of refactoring, bugs reaching production.
+
+### 4. Documentation Debt
+
+Tribal knowledge. Outdated wikis. "Ask Sarah, she knows."
+
+**Cost**: Slow onboarding, key-person dependencies.
+
+### 5. Process Debt
+
+Manual deployments. No CI/CD. "We'll automate it later."
+
+**Cost**: Human error, slow release cycles.
+
+## The Elimination Framework
+
+### Step 1: Audit Ruthlessly
+
+Before fixing anything, understand what you have. Score each area:
+
+| Area | Score (1-5) | Impact | Effort |
+|------|-------------|--------|--------|
+| Architecture | 3 | High | High |
+| Dependencies | 2 | High | Low |
+| Testing | 4 | Medium | Medium |
+| Documentation | 2 | Low | Low |
+| Process | 3 | High | Medium |
+
+### Step 2: Prioritize by ROI
+
+Fix high-impact, low-effort items first. Quick wins build momentum and free up resources for bigger projects.
+
+**Usually this means**: Update dependencies → Add CI/CD → Write critical path tests → Then tackle architecture.
+
+### Step 3: Stop Creating New Debt
+
+No amount of cleanup matters if you're adding debt faster than you're removing it.
+
+Implement these guardrails:
+- **Pre-commit hooks**: Lint, format, type-check before code enters the repo
+- **PR requirements**: Tests, documentation, review
+- **Definition of done**: Includes debt assessment
+
+```yaml
+# .github/workflows/quality.yml
+on: [pull_request]
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm run test
+```
+
+### Step 4: Budget Debt Work
+
+Don't make it a "someday" project. Allocate real time:
+
+- **20% rule**: One day per week for debt reduction
+- **Debt sprints**: Dedicated cleanup sprints quarterly
+- **Boy Scout rule**: Leave code better than you found it
+
+### Step 5: Measure Progress
+
+Track metrics over time:
+- Build time
+- Test coverage
+- Time to first PR merge (for new engineers)
+- Deployment frequency
+- Mean time to recovery
+
+## The Compound Effect
+
+Technical debt compounds negatively. But so does quality.
+
+Every piece of debt you eliminate makes the next fix easier. Every test you add makes refactoring safer. Every document you write makes onboarding faster.
+
+Start small. Stay consistent. The codebase you'll have in 12 months will be unrecognizable — in the best way.
+
+## Your First Week
+
+If you're starting from scratch, here's your week one:
+
+**Monday**: Run `npm audit`, update safe dependencies
+**Tuesday**: Add pre-commit hooks (ESLint, Prettier)
+**Wednesday**: Set up basic CI pipeline
+**Thursday**: Write tests for one critical path
+**Friday**: Document one undocumented system
+
+Small steps. Compounding returns.
+
+---
+
+*Drowning in technical debt and not sure where to start? [Let's build a roadmap](/contact).*
