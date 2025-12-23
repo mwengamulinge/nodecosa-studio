@@ -19,10 +19,20 @@ const ContactForm = () => {
     setSubmitStatus('idle')
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      console.log('Form data:', data)
-      setSubmitStatus('success')
-      reset()
+      const response = await fetch('https://formspree.io/f/xgowrpgy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        reset()
+      } else {
+        setSubmitStatus('error')
+      }
     } catch (error) {
       console.error('Form submission error:', error)
       setSubmitStatus('error')
@@ -43,7 +53,7 @@ const ContactForm = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Ready to Innovate?
+            Ready to Scale?
           </h2>
           <p className="text-xl text-gray-400">
             Tell us about your project. We usually respond within 24 hours.
@@ -129,7 +139,7 @@ const ContactForm = () => {
                 })}
                 id="message"
                 rows={5}
-                placeholder="Project details..."
+                placeholder="Tell us about your project, timeline, and budget..."
                 className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg focus:outline-none focus:border-primary-500 transition-colors text-white placeholder-gray-500 resize-none"
               />
               {errors.message && (
@@ -151,7 +161,7 @@ const ContactForm = () => {
                 </>
               ) : (
                 <>
-                  <span>Send Message</span>
+                  <span>Get My Technical Roadmap</span>
                   <Send className="w-5 h-5" />
                 </>
               )}
@@ -164,7 +174,7 @@ const ContactForm = () => {
                 className="flex items-center space-x-2 text-green-400 bg-green-400/10 px-4 py-3 rounded-lg"
               >
                 <CheckCircle className="w-5 h-5" />
-                <span>Message sent successfully! We will be in touch soon.</span>
+                <span>Message sent successfully! We'll be in touch within 24 hours.</span>
               </motion.div>
             )}
 
@@ -176,7 +186,7 @@ const ContactForm = () => {
               >
                 <AlertCircle className="w-5 h-5" />
                 <span>
-                  Something went wrong. Please try again or email us directly.
+                  Something went wrong. Please email us directly at hello@nodecosa.com
                 </span>
               </motion.div>
             )}
