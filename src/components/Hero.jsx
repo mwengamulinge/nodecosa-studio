@@ -76,7 +76,7 @@ const Hero = () => {
               href="#contact"
               className="inline-flex items-center space-x-2 px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium text-lg transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-primary-500/50 group"
             >
-              <span>Get My Technical Roadmap</span>
+              <span>Get a Quotation</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
           </motion.div>
