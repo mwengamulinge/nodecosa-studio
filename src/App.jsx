@@ -80,23 +80,23 @@ function App() {
                 </PageWrapper>
               } 
             />
+            <Route 
+              path="/privacy" 
+              element={
+                <PageWrapper>
+                  <PrivacyPolicy />
+                </PageWrapper>
+              } 
+            />
+            <Route 
+              path="/terms" 
+              element={
+                <PageWrapper>
+                  <TermsOfService />
+                </PageWrapper>
+              } 
+            />
           </Routes>
-          <Route 
-  path="/privacy" 
-  element={
-    <PageWrapper>
-      <PrivacyPolicy />
-    </PageWrapper>
-  } 
-/>
-<Route 
-  path="/terms" 
-  element={
-    <PageWrapper>
-      <TermsOfService />
-    </PageWrapper>
-  } 
-/>
         </AnimatePresence>
         <Footer />
       </motion.div>
