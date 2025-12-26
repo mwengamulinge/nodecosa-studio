@@ -1,12 +1,16 @@
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Clock, Layers, DollarSign, Wrench } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Clock, Layers, DollarSign, Wrench } from 'lucide-react'
 
 const Blog = () => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
   const posts = [
     {
       icon: Layers,
-      category: 'Architecture',
+      category: 'ARCHITECTURE',
       title: 'Architecting for Scale: A 254labs Deep Dive',
       excerpt:
         'How we built infrastructure to handle millions of requests with sub-second latency and zero downtime.',
@@ -15,7 +19,7 @@ const Blog = () => {
     },
     {
       icon: DollarSign,
-      category: 'Business',
+      category: 'BUSINESS',
       title: 'Why Poor API Design is a Silent Revenue Killer',
       excerpt:
         'The hidden costs of technical debt and how bad integrations bleed money from your business.',
@@ -24,7 +28,7 @@ const Blog = () => {
     },
     {
       icon: Wrench,
-      category: 'Engineering',
+      category: 'ENGINEERING',
       title: 'The 2025 Guide to Eliminating Technical Debt',
       excerpt:
         'Practical strategies to ship faster without accumulating the kind of debt that slows you down.',
@@ -33,91 +37,113 @@ const Blog = () => {
     },
   ]
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  }
+
   return (
-    <section id="insights" className="py-24 px-6 lg:px-8 relative">
-      <div className="max-w-7xl mx-auto">
+    <section ref={ref} id="insights" className="relative py-32">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-block px-4 py-2 rounded-full glass-effect mb-4">
-            <span className="text-sm font-medium text-primary-400">
-              From the Lab
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Insights on Scalable Engineering
+          <span className="kicker mb-4 block">// 05. FROM THE LAB</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-headline mb-6">
+            Insights on
+            <br />
+            <span className="text-muted">Scalable Engineering</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-muted text-lg max-w-xl mx-auto">
             Lessons learned from building high-performance systems.
           </p>
-          <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full mt-6" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Posts grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
           {posts.map((post, index) => {
             const Icon = post.icon
             return (
-              <motion.article
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
+              <motion.article key={index} variants={itemVariants}>
                 <Link
                   to={`/blog/${post.slug}`}
-                  className="group glass-effect rounded-xl p-8 hover:bg-dark-800/70 transition-all duration-300 hover:scale-105 cursor-pointer flex flex-col h-full block"
+                  className="group block h-full p-8 rounded-2xl border border-white/5 bg-dark-50/20 hover:bg-dark-50/40 hover:border-primary-500/20 transition-all duration-500"
                 >
+                  {/* Header */}
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center group-hover:bg-primary-500/20 transition-colors duration-300">
-                      <Icon className="w-6 h-6 text-primary-400" />
+                    <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center group-hover:bg-primary-500/10 transition-colors duration-300">
+                      <Icon className="w-5 h-5 text-muted group-hover:text-primary-400 transition-colors" />
                     </div>
-                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span className="font-mono text-[10px] text-muted tracking-widest">
                       {post.category}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-primary-400 transition-colors duration-300">
+                  {/* Content */}
+                  <h3 className="text-lg font-semibold mb-3 group-hover:text-primary-400 transition-colors duration-300 leading-snug">
                     {post.title}
                   </h3>
 
-                  <p className="text-gray-400 leading-relaxed mb-6 flex-grow">
+                  <p className="text-sm text-muted leading-relaxed mb-6">
                     {post.excerpt}
                   </p>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-dark-700">
-                    <div className="flex items-center space-x-2 text-sm text-gray-500">
-                      <Clock className="w-4 h-4" />
+                  {/* Footer */}
+                  <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                    <div className="flex items-center gap-2 text-xs text-muted">
+                      <Clock className="w-3.5 h-3.5" />
                       <span>{post.readTime}</span>
                     </div>
-                    <div className="flex items-center space-x-1 text-primary-400 text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
-                      <span>Read More</span>
-                      <ArrowRight className="w-4 h-4" />
+                    <div className="flex items-center gap-1 text-primary-400 text-xs font-medium">
+                      <span>Read</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
                     </div>
                   </div>
                 </Link>
               </motion.article>
             )
           })}
-        </div>
+        </motion.div>
 
+        {/* View all link */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="text-center mt-12"
         >
           <Link
             to="/blog"
-            className="inline-flex items-center space-x-2 px-6 py-3 glass-effect rounded-lg hover:bg-dark-800/70 transition-all duration-300 group"
+            className="group inline-flex items-center gap-2 text-sm text-muted hover:text-white transition-colors duration-200"
           >
-            <span className="font-medium">View All Posts</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <span>View All Posts</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
           </Link>
         </motion.div>
       </div>
