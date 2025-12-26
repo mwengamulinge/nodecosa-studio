@@ -1,196 +1,168 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { useForm } from 'react-hook-form'
-import { Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { ArrowRight, Send, CheckCircle } from 'lucide-react'
 
 const ContactForm = () => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState('idle')
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  })
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm()
-
-  const onSubmit = async (data) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     setIsSubmitting(true)
-    setSubmitStatus('idle')
+    
+    // Simulate submission - replace with actual endpoint
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    
+    setIsSubmitting(false)
+    setIsSubmitted(true)
+  }
 
-    try {
-      const response = await fetch('https://formspree.io/f/xgowrpgy', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-
-      if (response.ok) {
-        setSubmitStatus('success')
-        reset()
-      } else {
-        setSubmitStatus('error')
-      }
-    } catch (error) {
-      console.error('Form submission error:', error)
-      setSubmitStatus('error')
-    } finally {
-      setIsSubmitting(false)
-      setTimeout(() => setSubmitStatus('idle'), 5000)
-    }
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }))
   }
 
   return (
-    <section id="contact" className="py-24 px-6 lg:px-8 relative">
-      <div className="max-w-4xl mx-auto">
+    <section ref={ref} id="contact" className="relative py-32">
+      <div className="max-w-4xl mx-auto px-6 lg:px-8">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Ready to Scale?
+          <span className="kicker mb-4 block">// LET'S BUILD</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-headline mb-6">
+            The future won't wait
+            <br />
+            <span className="text-muted">for your roadmap.</span>
           </h2>
-          <p className="text-xl text-gray-400">
-            Tell us about your project. We usually respond within 24 hours.
+          <p className="text-muted text-lg max-w-xl mx-auto">
+            We are currently accepting <span className="text-white font-medium">two new projects</span> for Q1 2026. 
+            Let's talk about yours.
           </p>
         </motion.div>
 
+        {/* Form card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="glass-effect rounded-2xl p-8 md:p-12"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Name
-              </label>
-              <input
-                {...register('name', {
-                  required: 'Name is required',
-                  minLength: {
-                    value: 2,
-                    message: 'Name must be at least 2 characters',
-                  },
-                })}
-                type="text"
-                id="name"
-                placeholder="John Doe"
-                className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg focus:outline-none focus:border-primary-500 transition-colors text-white placeholder-gray-500"
-              />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-400">
-                  {errors.name.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Email
-              </label>
-              <input
-                {...register('email', {
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'Invalid email address',
-                  },
-                })}
-                type="email"
-                id="email"
-                placeholder="john@company.com"
-                className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg focus:outline-none focus:border-primary-500 transition-colors text-white placeholder-gray-500"
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-400">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                Message
-              </label>
-              <textarea
-                {...register('message', {
-                  required: 'Message is required',
-                  minLength: {
-                    value: 10,
-                    message: 'Message must be at least 10 characters',
-                  },
-                })}
-                id="message"
-                rows={5}
-                placeholder="Tell us about your project, timeline, and budget..."
-                className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg focus:outline-none focus:border-primary-500 transition-colors text-white placeholder-gray-500 resize-none"
-              />
-              {errors.message && (
-                <p className="mt-1 text-sm text-red-400">
-                  {errors.message.message}
-                </p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full px-6 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium text-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2"
-            >
-              {isSubmitting ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Sending...</span>
-                </>
-              ) : (
-                <>
-                  <span>Get My Technical Roadmap</span>
-                  <Send className="w-5 h-5" />
-                </>
-              )}
-            </button>
-
-            {submitStatus === 'success' && (
+          <div className="rounded-2xl border border-white/5 bg-dark-50/30 p-8 md:p-12">
+            {isSubmitted ? (
+              // Success state
               <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center space-x-2 text-green-400 bg-green-400/10 px-4 py-3 rounded-lg"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-12"
               >
-                <CheckCircle className="w-5 h-5" />
-                <span>Message sent successfully! We'll be in touch within 24 hours.</span>
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-500/10 mb-6">
+                  <CheckCircle className="w-8 h-8 text-primary-400" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-3">Message Received</h3>
+                <p className="text-muted">
+                  We'll review your project details and get back to you within 24 hours.
+                </p>
               </motion.div>
-            )}
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name field */}
+                <div>
+                  <label 
+                    htmlFor="name" 
+                    className="block font-mono text-xs text-muted tracking-widest mb-3"
+                  >
+                    NAME
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="John Doe"
+                    className="w-full px-4 py-4 bg-dark border border-white/10 rounded-lg text-white placeholder:text-muted/50 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/50 transition-all"
+                  />
+                </div>
 
-            {submitStatus === 'error' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center space-x-2 text-red-400 bg-red-400/10 px-4 py-3 rounded-lg"
-              >
-                <AlertCircle className="w-5 h-5" />
-                <span>
-                  Something went wrong. Please email us directly at hello@nodecosa.com
-                </span>
-              </motion.div>
+                {/* Email field */}
+                <div>
+                  <label 
+                    htmlFor="email" 
+                    className="block font-mono text-xs text-muted tracking-widest mb-3"
+                  >
+                    EMAIL
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="john@company.com"
+                    className="w-full px-4 py-4 bg-dark border border-white/10 rounded-lg text-white placeholder:text-muted/50 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/50 transition-all"
+                  />
+                </div>
+
+                {/* Message field */}
+                <div>
+                  <label 
+                    htmlFor="message" 
+                    className="block font-mono text-xs text-muted tracking-widest mb-3"
+                  >
+                    PROJECT DETAILS
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    placeholder="Tell us about your project, timeline, and budget..."
+                    className="w-full px-4 py-4 bg-dark border border-white/10 rounded-lg text-white placeholder:text-muted/50 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/50 transition-all resize-none"
+                  />
+                </div>
+
+                {/* Submit button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary-500 hover:bg-primary-400 disabled:opacity-50 disabled:cursor-not-allowed text-dark font-semibold rounded-lg transition-all duration-300"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span>Sending...</span>
+                      <div className="w-4 h-4 border-2 border-dark/30 border-t-dark rounded-full animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      <span>Schedule a Technical Audit</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
+
+                {/* Response time note */}
+                <p className="text-center text-sm text-muted">
+                  We typically respond within 24 hours.
+                </p>
+              </form>
             )}
-          </form>
+          </div>
         </motion.div>
       </div>
     </section>
