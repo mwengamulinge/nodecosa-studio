@@ -12,6 +12,8 @@ import Footer from './components/Footer'
 import Preloader from './components/Preloader'
 import BlogPage from './pages/BlogPage'
 import Blogpostpage from './pages/Blogpostpage'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfService from './pages/TermsOfService'
 
 // Page transition wrapper
 const PageWrapper = ({ children }) => {
