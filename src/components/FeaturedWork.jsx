@@ -1,126 +1,154 @@
-import { motion } from 'framer-motion'
-import { Zap, Clock, Shield, ExternalLink } from 'lucide-react'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { ArrowUpRight, Clock, Gauge, Server } from 'lucide-react'
 
 const FeaturedWork = () => {
-  const stats = [
-    { icon: Zap, value: '<800ms', label: 'Avg Response' },
-    { icon: Clock, value: '6 Weeks', label: 'To Production' },
-    { icon: Shield, value: '99.9%', label: 'Uptime' },
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
+  const metrics = [
+    { icon: Clock, value: '42', unit: 'Days', label: 'To Production' },
+    { icon: Gauge, value: '<800', unit: 'ms', label: 'Response Time' },
+    { icon: Server, value: '99.9', unit: '%', label: 'Uptime' },
+  ]
+
+  const techStack = [
+    'React', 'Supabase', 'Gemini API', 'Paystack', 'Vercel Edge'
   ]
 
   return (
-    <section id="work" className="py-24 px-6 lg:px-8 relative">
-      <div className="max-w-7xl mx-auto">
+    <section ref={ref} id="work" className="relative py-32 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark-50/30 to-dark" />
+      
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <div className="inline-block px-4 py-2 rounded-full glass-effect mb-4">
-            <span className="text-sm font-medium text-primary-400">
-              Featured Case Study
-            </span>
-          </div>
+          <span className="kicker mb-4 block">// 04. CASE STUDY</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-headline">
+            42 Days to
+            <br />
+            <span className="text-gradient">Production.</span>
+          </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-5xl md:text-6xl font-bold mb-4">254labs</h2>
-            <h3 className="text-2xl text-primary-400 font-semibold mb-6">
-              From Concept to Production-Ready in 6 Weeks
-            </h3>
-            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-              We architected a full-stack AI content platform with real-time 
-              processing, secure API infrastructure, and integrated payment 
-              systems—built to scale from day one with sub-second response times.
-            </p>
-
-            <div className="grid grid-cols-3 gap-6 mb-8">
-              {stats.map((stat, index) => {
-                const Icon = stat.icon
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className="w-12 h-12 bg-primary-500/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                      <Icon className="w-6 h-6 text-primary-400" />
-                    </div>
-                    <div className="text-3xl font-bold text-primary-400 mb-1">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-gray-400">{stat.label}</div>
-                  </motion.div>
-                )
-              })}
-            </div>
-
-            <a
-              href="https://254labs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 px-6 py-3 glass-effect rounded-lg hover:bg-dark-800/70 transition-all duration-300 group"
-            >
-              <span className="font-medium">View Live Product</span>
-              <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            <div className="glass-effect rounded-2xl p-8 hover:bg-dark-800/70 transition-all duration-300">
-              <div className="aspect-video bg-gradient-to-br from-dark-900 to-dark-800 rounded-xl flex items-center justify-center relative overflow-hidden">
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary-500/20 via-blue-500/20 to-purple-500/20"
-                  animate={{ x: ['-100%', '100%'] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                />
-
-                <div className="relative z-10 w-24 h-24 bg-primary-500/20 rounded-full flex items-center justify-center shadow-lg shadow-primary-500/50">
-                  <div className="w-12 h-12 bg-primary-500 rounded-full animate-pulse" />
+        {/* Case study card */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative"
+        >
+          <div className="rounded-3xl border border-white/5 bg-dark-50/30 overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-0">
+              {/* Left content */}
+              <div className="p-10 lg:p-14">
+                {/* Project title */}
+                <div className="mb-8">
+                  <span className="font-mono text-xs text-muted tracking-widest mb-2 block">
+                    THE PROJECT
+                  </span>
+                  <h3 className="text-3xl md:text-4xl font-bold tracking-tight">
+                    254labs
+                  </h3>
+                  <p className="text-primary-400 font-medium mt-1">
+                    AI Content Engine
+                  </p>
                 </div>
-              </div>
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                {['React', 'Supabase', 'Gemini API', 'Paystack', 'Vercel'].map(
-                  (tech, index) => (
+                {/* Description blocks */}
+                <div className="space-y-6 mb-10">
+                  <div>
+                    <span className="font-mono text-[10px] text-muted tracking-widest block mb-2">
+                      THE EXECUTION
+                    </span>
+                    <p className="text-muted leading-relaxed">
+                      From a blank terminal to a fully-functional AI platform in 6 weeks.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <span className="font-mono text-[10px] text-muted tracking-widest block mb-2">
+                      THE TECH
+                    </span>
+                    <p className="text-muted leading-relaxed">
+                      Edge functions, Vector embeddings, and a sub-second UI.
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="font-mono text-[10px] text-muted tracking-widest block mb-2">
+                      THE OUTCOME
+                    </span>
+                    <p className="text-muted leading-relaxed">
+                      A production-ready asset that scales automatically to its first 10k users for the cost of a cup of coffee.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Tech stack */}
+                <div className="flex flex-wrap gap-2 mb-10">
+                  {techStack.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-primary-500/10 text-primary-400 text-sm rounded-full font-medium"
+                      className="px-3 py-1 text-xs font-mono text-muted bg-white/5 rounded-full"
                     >
                       {tech}
                     </span>
-                  )
-                )}
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <a
+                  href="https://254labs.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 font-medium transition-colors"
+                >
+                  <span>View Live Product</span>
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              </div>
+
+              {/* Right metrics */}
+              <div className="bg-dark-50/50 p-10 lg:p-14 flex flex-col justify-center">
+                <div className="space-y-8">
+                  {metrics.map((metric, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                      className="flex items-center gap-6"
+                    >
+                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center">
+                        <metric.icon className="w-6 h-6 text-primary-400" />
+                      </div>
+                      <div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-4xl md:text-5xl font-bold tracking-tight">
+                            {metric.value}
+                          </span>
+                          <span className="text-xl text-muted font-medium">
+                            {metric.unit}
+                          </span>
+                        </div>
+                        <span className="text-sm text-muted">
+                          {metric.label}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </div>
-
-            <motion.div
-              className="absolute -top-6 -right-6 w-32 h-32 bg-primary-500/30 rounded-full blur-3xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
