@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
@@ -19,7 +19,6 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Services', href: '/#services' },
-    { name: 'Capabilities', href: '/#capabilities' },
     { name: 'Work', href: '/#work' },
     { name: 'Insights', href: '/blog' },
   ]
@@ -27,7 +26,6 @@ const Navbar = () => {
   const handleNavClick = (href) => {
     setIsMobileMenuOpen(false)
     
-    // If it's a hash link and we're on the home page, scroll to section
     if (href.startsWith('/#') && isHomePage) {
       const element = document.querySelector(href.substring(1))
       if (element) {
@@ -38,25 +36,29 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass-effect py-4' : 'bg-transparent py-6'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? 'bg-dark/80 backdrop-blur-xl border-b border-white/5 py-4' 
+          : 'bg-transparent py-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold">
-              NODE<span className="text-gradient">COSA</span>
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <span className="font-mono text-sm tracking-widest">
+              NODE<span className="text-primary-400">COSA</span>
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               link.href.startsWith('/') && !link.href.startsWith('/#') ? (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
+                  className="text-sm text-muted hover:text-white transition-colors duration-200"
                 >
                   {link.name}
                 </Link>
@@ -65,66 +67,74 @@ const Navbar = () => {
                   key={link.name}
                   href={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
+                  className="text-sm text-muted hover:text-white transition-colors duration-200"
                 >
                   {link.name}
                 </a>
               )
             ))}
-            <Link
-              to="/#contact"
-              className="px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary-500/50"
+            <a
+              href="#contact"
+              onClick={() => handleNavClick('#contact')}
+              className="px-5 py-2.5 bg-primary-500 hover:bg-primary-400 text-dark text-sm font-semibold rounded-lg transition-all duration-200"
             >
               Start Project
-            </Link>
+            </a>
           </div>
 
+          {/* Mobile menu button */}
           <button
-            className="md:hidden text-gray-300 hover:text-white transition-colors"
+            className="md:hidden text-muted hover:text-white transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="md:hidden mt-4 glass-effect rounded-lg p-4"
-          >
-            <div className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                link.href.startsWith('/') && !link.href.startsWith('/#') ? (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className="text-gray-300 hover:text-primary-400 transition-colors duration-200 font-medium"
-                    onClick={() => handleNavClick(link.href)}
-                  >
-                    {link.name}
-                  </a>
-                )
-              ))}
-              <Link
-                to="/#contact"
-                className="px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium text-center transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Start Project
-              </Link>
-            </div>
-          </motion.div>
-        )}
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="md:hidden overflow-hidden"
+            >
+              <div className="pt-6 pb-4 flex flex-col gap-4">
+                {navLinks.map((link) => (
+                  link.href.startsWith('/') && !link.href.startsWith('/#') ? (
+                    <Link
+                      key={link.name}
+                      to={link.href}
+                      className="text-muted hover:text-white transition-colors duration-200 py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      className="text-muted hover:text-white transition-colors duration-200 py-2"
+                      onClick={() => handleNavClick(link.href)}
+                    >
+                      {link.name}
+                    </a>
+                  )
+                ))}
+                <a
+                  href="#contact"
+                  className="mt-2 px-5 py-3 bg-primary-500 hover:bg-primary-400 text-dark text-sm font-semibold rounded-lg text-center transition-all duration-200"
+                  onClick={() => handleNavClick('#contact')}
+                >
+                  Start Project
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   )
