@@ -1,4 +1,5 @@
 import { Github, Twitter, Linkedin, Mail } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -6,80 +7,98 @@ const Footer = () => {
   const footerLinks = {
     company: [
       { name: 'Services', href: '#services' },
-      { name: 'Capabilities', href: '#capabilities' },
       { name: 'Work', href: '#work' },
+      { name: 'Insights', href: '/blog', isRoute: true },
       { name: 'Contact', href: '#contact' },
     ],
     services: [
       { name: 'API Integration', href: '#services' },
-      { name: 'Mobile Development', href: '#services' },
+      { name: 'AI & ML Systems', href: '#services' },
       { name: 'Backend Engineering', href: '#services' },
       { name: 'SaaS Development', href: '#services' },
     ],
   }
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:hello@nodecosa.com', label: 'Email' },
+    { icon: Github, href: 'https://github.com/nodecosa', label: 'GitHub' },
+    { icon: Twitter, href: 'https://twitter.com/nodecosa', label: 'Twitter' },
+    { icon: Linkedin, href: 'https://linkedin.com/company/nodecosa', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:hello@nodecosa.online', label: 'Email' },
   ]
 
   return (
-    <footer className="relative border-t border-gray-800 py-16 px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+    <footer className="relative border-t border-white/5 py-20 px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          {/* Brand column */}
           <div className="lg:col-span-2">
-            <a href="/" className="inline-block mb-4">
-              <span className="text-2xl font-bold">
-                NODE<span className="text-gradient">COSA</span>
+            <Link to="/" className="inline-block mb-6">
+              <span className="font-mono text-sm tracking-widest">
+                NODE<span className="text-primary-400">COSA</span>
               </span>
-            </a>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Innovation Studio specializing in precision engineering for modern
-              software. Building the invisible backbone of the web.
+            </Link>
+            <p className="text-muted text-sm leading-relaxed mb-8 max-w-sm">
+              High-velocity engineering studio. Building AI-native, 
+              edge-distributed applications for founders who ship fast.
             </p>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-3">
               {socialLinks.map((social, index) => {
                 const Icon = social.icon
                 return (
                   <a
                     key={index}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 bg-dark-800 hover:bg-primary-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+                    className="w-9 h-9 bg-white/5 hover:bg-primary-500/20 border border-white/5 hover:border-primary-500/30 rounded-lg flex items-center justify-center transition-all duration-300 group"
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-4 h-4 text-muted group-hover:text-primary-400 transition-colors" />
                   </a>
                 )
               })}
             </div>
           </div>
 
+          {/* Company links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
-            <ul className="space-y-3">
+            <h3 className="font-mono text-xs text-muted tracking-widest mb-6">
+              COMPANY
+            </h3>
+            <ul className="space-y-4">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-primary-400 transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
+                  {link.isRoute ? (
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted hover:text-white transition-colors duration-200"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted hover:text-white transition-colors duration-200"
+                    >
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
 
+          {/* Services links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
-            <ul className="space-y-3">
+            <h3 className="font-mono text-xs text-muted tracking-widest mb-6">
+              SERVICES
+            </h3>
+            <ul className="space-y-4">
               {footerLinks.services.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-primary-400 transition-colors duration-200"
+                    className="text-sm text-muted hover:text-white transition-colors duration-200"
                   >
                     {link.name}
                   </a>
@@ -89,29 +108,26 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-gray-400 text-sm">
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-muted text-xs">
             © {currentYear} Nodecosa Innovation Studio. All rights reserved.
           </p>
-          <div className="flex items-center space-x-6 text-sm">
+          <div className="flex items-center gap-6 text-xs">
             <a
-              href="#"
-              className="text-gray-400 hover:text-primary-400 transition-colors"
+              href="/privacy"
+              className="text-muted hover:text-white transition-colors"
             >
               Privacy Policy
             </a>
             <a
-              href="#"
-              className="text-gray-400 hover:text-primary-400 transition-colors"
+              href="/terms"
+              className="text-muted hover:text-white transition-colors"
             >
               Terms of Service
             </a>
           </div>
         </div>
-      </div>
-
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl" />
       </div>
     </footer>
   )
