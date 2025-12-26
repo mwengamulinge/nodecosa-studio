@@ -57,7 +57,7 @@ const FeaturedWork = () => {
                     254labs
                   </h3>
                   <p className="text-primary-400 font-medium mt-1">
-                    AI Content Engine
+                    AI Content humanization Engine
                   </p>
                 </div>
 
