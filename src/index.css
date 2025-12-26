@@ -1,11 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Geist Mono - loaded from Vercel's CDN */
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://assets.vercel.com/raw/upload/v1710434889/geist/GeistMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://assets.vercel.com/raw/upload/v1710434889/geist/GeistMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Geist Sans */
+@font-face {
+  font-family: 'Geist';
+  src: url('https://assets.vercel.com/raw/upload/v1710434889/geist/Geist-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://assets.vercel.com/raw/upload/v1710434889/geist/Geist-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://assets.vercel.com/raw/upload/v1710434889/geist/Geist-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://assets.vercel.com/raw/upload/v1710434889/geist/Geist-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://assets.vercel.com/raw/upload/v1710434889/geist/Geist-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 10, 14, 26;
-  --background-end-rgb: 17, 24, 39;
+  --foreground: #FFFFFF;
+  --foreground-muted: #A1A1AA;
+  --background: #0A0A0A;
+  --background-subtle: #141414;
+  --primary: #22c55e;
+  --primary-light: #4ade80;
 }
 
 * {
@@ -19,63 +82,119 @@ html {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  font-family: 'Inter', sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Geist', system-ui, sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   min-height: 100vh;
 }
 
+/* Preloader hide class */
+.loaded .preloader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 @layer utilities {
+  /* Text gradient for headlines */
   .text-gradient {
-    background: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+    background: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #4ade80 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   
+  /* Glass morphism effect */
   .glass-effect {
-    background: rgba(17, 24, 39, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
   
+  /* Subtle grid background */
   .grid-bg {
     background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
+      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  /* Kicker text style - monospace labels */
+  .kicker {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+
+  /* Muted body text */
+  .text-muted {
+    color: var(--foreground-muted);
+  }
+
+  /* Headline tracking */
+  .tracking-headline {
+    letter-spacing: -0.04em;
   }
 }
 
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0e1a;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #22c55e;
-  border-radius: 5px;
+  background: var(--primary);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #16a34a;
+  background: var(--primary-light);
 }
 
+/* Selection */
 ::selection {
-  background-color: rgba(34, 197, 94, 0.3);
+  background-color: rgba(34, 197, 94, 0.25);
   color: #ffffff;
+}
+
+/* Focus states */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Smooth page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
 }
