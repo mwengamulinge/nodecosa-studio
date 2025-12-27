@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Home, ArrowLeft } from 'lucide-react'
+import { Home } from 'lucide-react'
 
 const NotFound = () => {
   return (
@@ -36,23 +36,13 @@ const NotFound = () => {
           The page you're looking for doesn't exist or has been moved.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            to="/"
-            className="inline-flex items-center space-x-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary-500/50"
-          >
-            <Home className="w-5 h-5" />
-            <span>Back to Home</span>
-          </Link>
-
-          <button
-            onClick={() => window.history.back()}
-            className="inline-flex items-center space-x-2 px-6 py-3 glass-effect rounded-lg font-medium hover:bg-dark-800/70 transition-all duration-200"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Go Back</span>
-          </button>
-        </div>
+        <Link
+          to="/"
+          className="inline-flex items-center space-x-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary-500/50"
+        >
+          <Home className="w-5 h-5" />
+          <span>Back to Home</span>
+        </Link>
       </motion.div>
     </section>
   )
