@@ -14,6 +14,7 @@ import BlogPage from './pages/BlogPage'
 import Blogpostpage from './pages/Blogpostpage'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
+import NotFound from './pages/NotFound'
 
 // Page transition wrapper
 const PageWrapper = ({ children }) => {
@@ -96,6 +97,7 @@ function App() {
                 </PageWrapper>
               } 
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
         <Footer />
