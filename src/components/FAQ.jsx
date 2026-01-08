@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom' // Import Link
+import { motion, AnimatePresence } from 'framer-motion' // For smooth accordion
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null)
@@ -67,7 +69,7 @@ export default function FAQ() {
                   {faq.question}
                 </span>
                 <svg 
-                  className={`w-6 h-6 text-green-500 transition-transform ${
+                  className={`w-6 h-6 text-green-500 transition-transform duration-300 ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                   fill="none" 
@@ -78,13 +80,22 @@ export default function FAQ() {
                 </svg>
               </button>
               
-              {openIndex === index && (
-                <div className="px-6 py-5 bg-zinc-950">
-                  <p className="text-gray-400 leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </div>
-              )}
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div 
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <div className="px-6 py-5 bg-zinc-950 border-t border-zinc-800">
+                      <p className="text-gray-400 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </div>
@@ -92,12 +103,12 @@ export default function FAQ() {
         {/* Contact CTA */}
         <div className="mt-12 text-center">
           <p className="text-gray-400 mb-4">Still have questions?</p>
-          <a 
-            href="mailto:contact@nodecosa.com"
-            className="inline-block text-green-500 hover:text-green-400 font-semibold transition-colors"
+          <Link 
+            to="/#contact"
+            className="inline-block text-green-500 hover:text-green-400 font-semibold transition-colors active:scale-95"
           >
             Get in touch →
-          </a>
+          </Link>
         </div>
       </div>
     </section>
