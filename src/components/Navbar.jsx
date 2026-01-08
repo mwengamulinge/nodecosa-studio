@@ -19,11 +19,11 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Services', href: '/#services' },
-    { name: 'How It Works', href: '/#how-it-works' },      // NEW
-    { name: 'Pricing', href: '/#pricing' },                // NEW
+    { name: 'How It Works', href: '/#how-it-works' },
+    { name: 'Pricing', href: '/#pricing' },
     { name: 'Work', href: '/#work' },
     { name: 'Insights', href: '/blog' },
-    { name: 'FAQ', href: '/#faq' },                        // NEW
+    { name: 'FAQ', href: '/#faq' },
   ]
 
   const handleNavClick = (href) => {
