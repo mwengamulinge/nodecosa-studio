@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom' // Import Link
-import { motion, AnimatePresence } from 'framer-motion' // For smooth accordion
+import { Link, useLocation } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null)
+  const location = useLocation()
 
   const faqs = [
     {
@@ -39,6 +40,21 @@ export default function FAQ() {
       answer: "Your goals/vision, content (text and images), brand assets (logo, colors), and 50% deposit. We'll guide you through the hosting setup and everything else."
     }
   ]
+
+  // Handler to ensure the scroll works even if we're already on the home page
+  const handleContactClick = (e) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      const element = document.getElementById('contact');
+      if (element) {
+        const yOffset = -100; // Matches your App.jsx scroll logic
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      // Manually update URL hash without jump
+      window.history.pushState(null, '', '#contact');
+    }
+  };
 
   return (
     <section className="py-20 bg-black" id="faq">
@@ -105,7 +121,8 @@ export default function FAQ() {
           <p className="text-gray-400 mb-4">Still have questions?</p>
           <Link 
             to="/#contact"
-            className="inline-block text-green-500 hover:text-green-400 font-semibold transition-colors active:scale-95"
+            onClick={handleContactClick}
+            className="inline-block text-green-500 hover:text-green-400 font-semibold transition-colors active:scale-95 outline-none"
           >
             Get in touch →
           </Link>
