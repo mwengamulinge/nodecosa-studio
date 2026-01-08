@@ -21,7 +21,7 @@ export default function FAQ() {
       answer: "Managed Hosting clients get 1 hour of updates per month included. Additional changes are billed at $50/hour. You can also make updates yourself if you prefer - you own everything."
     },
     {
-      question: "Do you work with clients outside Kenya?",
+      question: "Do you work with clients Globally?",
       answer: "Absolutely! We work with startups globally. All communication is remote via email, Zoom, and WhatsApp. We've built sites for clients across multiple time zones."
     },
     {
