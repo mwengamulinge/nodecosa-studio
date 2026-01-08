@@ -19,8 +19,11 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Services', href: '/#services' },
+    { name: 'How It Works', href: '/#how-it-works' },      // NEW
+    { name: 'Pricing', href: '/#pricing' },                // NEW
     { name: 'Work', href: '/#work' },
     { name: 'Insights', href: '/blog' },
+    { name: 'FAQ', href: '/#faq' },                        // NEW
   ]
 
   const handleNavClick = (href) => {
@@ -63,7 +66,7 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ) : (
-                <a
+                
                   key={link.name}
                   href={link.href}
                   onClick={() => handleNavClick(link.href)}
@@ -73,7 +76,7 @@ const Navbar = () => {
                 </a>
               )
             ))}
-            <a
+            
               href="#contact"
               onClick={() => handleNavClick('#contact')}
               className="px-5 py-2.5 bg-primary-500 hover:bg-primary-400 text-dark text-sm font-semibold rounded-lg transition-all duration-200"
@@ -114,7 +117,7 @@ const Navbar = () => {
                       {link.name}
                     </Link>
                   ) : (
-                    <a
+                    
                       key={link.name}
                       href={link.href}
                       className="text-muted hover:text-white transition-colors duration-200 py-2"
@@ -124,7 +127,7 @@ const Navbar = () => {
                     </a>
                   )
                 ))}
-                <a
+                
                   href="#contact"
                   className="mt-2 px-5 py-3 bg-primary-500 hover:bg-primary-400 text-dark text-sm font-semibold rounded-lg text-center transition-all duration-200"
                   onClick={() => handleNavClick('#contact')}
