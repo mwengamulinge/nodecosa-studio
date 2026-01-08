@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion' // Added for scroll reveals
+
 export default function HowItWorks() {
   const steps = [
     {
@@ -54,43 +57,49 @@ export default function HowItWorks() {
           {/* Steps */}
           <div className="space-y-12">
             {steps.map((step, index) => (
-              <div 
+              <motion.div 
                 key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`flex flex-col md:flex-row items-center gap-8 ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
               >
                 {/* Content */}
                 <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                  <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-green-500 transition-colors">
+                  <div className="group bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-green-500 transition-all duration-300">
                     <span className="text-green-500 text-sm font-semibold">{step.timeline}</span>
-                    <h3 className="text-2xl font-bold text-white mt-2 mb-3">{step.title}</h3>
+                    <h3 className="text-2xl font-bold text-white mt-2 mb-3 group-hover:text-green-400 transition-colors">
+                      {step.title}
+                    </h3>
                     <p className="text-gray-400">{step.description}</p>
                   </div>
                 </div>
 
                 {/* Number circle */}
                 <div className="relative z-10 flex-shrink-0">
-                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)]">
                     <span className="text-black font-bold text-xl">{step.number}</span>
                   </div>
                 </div>
 
                 {/* Spacer for alternating layout */}
                 <div className="flex-1 hidden md:block"></div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
-        {/* CTA */}
+        {/* Updated CTA Button */}
         <div className="text-center mt-16">
-          <a 
-            href="mailto:contact@nodecosa.com"
-            className="inline-block bg-green-500 hover:bg-green-600 text-black font-semibold px-8 py-4 rounded-lg transition-colors"
+          <Link 
+            to="/#contact"
+            className="inline-block bg-green-500 hover:bg-green-400 text-black font-bold px-10 py-4 rounded-lg transition-all active:scale-95 shadow-lg shadow-green-500/10"
           >
             Start Your Project →
-          </a>
+          </Link>
         </div>
       </div>
     </section>
