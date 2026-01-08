@@ -5,8 +5,11 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Philosophy from './components/Philosophy'
 import Services from './components/Services'
+import HowItWorks from './components/HowItWorks'  // NEW
+import Pricing from './components/Pricing'        // NEW
 import FeaturedWork from './components/FeaturedWork'
 import Blog from './components/Blog'
+import FAQ from './components/FAQ'                // NEW
 import ContactForm from './components/ContactForm'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
@@ -39,8 +42,11 @@ function HomePage() {
       <Hero />
       <Philosophy />
       <Services />
+      <HowItWorks />      {/* NEW - Add after Services */}
+      <Pricing />         {/* NEW - Add after HowItWorks */}
       <FeaturedWork />
       <Blog />
+      <FAQ />             {/* NEW - Add before ContactForm */}
       <ContactForm />
     </PageWrapper>
   )
