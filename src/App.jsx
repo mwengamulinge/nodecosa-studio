@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Philosophy from './components/Philosophy'
 import Services from './components/Services'
-import HowItWorks from './components/HowItWorks'  // NEW
-import Pricing from './components/Pricing'        // NEW
+import HowItWorks from './components/HowItWorks'
+import Pricing from './components/Pricing'
 import FeaturedWork from './components/FeaturedWork'
 import Blog from './components/Blog'
-import FAQ from './components/FAQ'                // NEW
+import FAQ from './components/FAQ'
 import ContactForm from './components/ContactForm'
 import Footer from './components/Footer'
 import Preloader from './components/Preloader'
@@ -18,6 +18,34 @@ import Blogpostpage from './pages/Blogpostpage'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import NotFound from './pages/NotFound'
+
+// --- NEW: Scroll Management Component ---
+const ScrollToHash = () => {
+  const { pathname, hash } = useLocation()
+
+  useEffect(() => {
+    if (hash) {
+      // Small delay to ensure the DOM is rendered
+      const timeoutId = setTimeout(() => {
+        const id = hash.replace('#', '')
+        const element = document.getElementById(id)
+        if (element) {
+          // Offset calculation: window position - navbar height (approx 80px)
+          const yOffset = -80 
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+          
+          window.scrollTo({ top: y, behavior: 'smooth' })
+        }
+      }, 100)
+      return () => clearTimeout(timeoutId)
+    } else {
+      // If no hash, scroll to top on page change
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [pathname, hash])
+
+  return null
+}
 
 // Page transition wrapper
 const PageWrapper = ({ children }) => {
@@ -39,15 +67,16 @@ const PageWrapper = ({ children }) => {
 function HomePage() {
   return (
     <PageWrapper>
-      <Hero />
+      {/* Ensure IDs here match your Navbar hrefs (e.g., id="services") */}
+      <section id="hero"><Hero /></section>
       <Philosophy />
-      <Services />
-      <HowItWorks />      {/* NEW - Add after Services */}
-      <Pricing />         {/* NEW - Add after HowItWorks */}
+      <section id="services"><Services /></section>
+      <section id="how-it-works"><HowItWorks /></section>
+      <section id="pricing"><Pricing /></section>
       <FeaturedWork />
       <Blog />
-      <FAQ />             {/* NEW - Add before ContactForm */}
-      <ContactForm />
+      <section id="faq"><FAQ /></section>
+      <section id="contact"><ContactForm /></section>
     </PageWrapper>
   )
 }
@@ -58,17 +87,20 @@ function App() {
 
   return (
     <div className="min-h-screen bg-dark">
-      {/* Preloader */}
+      {/* Handles smooth scrolling to #ids across all pages */}
+      <ScrollToHash />
+
       <Preloader onComplete={() => setIsLoading(false)} />
       
-      {/* Main content - fades in after preloader */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoading ? 0 : 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <Navbar />
+        
         <AnimatePresence mode="wait">
+          {/* Note: we use location.pathname as key so transitions only trigger on page changes, not hash changes */}
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage />} />
             <Route 
@@ -106,6 +138,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
+        
         <Footer />
       </motion.div>
     </div>
