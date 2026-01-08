@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, animate } from 'framer-motion' // Added animate
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Philosophy from './components/Philosophy'
@@ -19,28 +19,35 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import NotFound from './pages/NotFound'
 
-// --- NEW: Scroll Management Component ---
+// --- IMPROVED: Premium Scroll Management ---
 const ScrollToHash = () => {
   const { pathname, hash } = useLocation()
 
   useEffect(() => {
     if (hash) {
-      // Small delay to ensure the DOM is rendered
+      // Small timeout to wait for PageWrapper animation to start
       const timeoutId = setTimeout(() => {
         const id = hash.replace('#', '')
         const element = document.getElementById(id)
+        
         if (element) {
-          // Offset calculation: window position - navbar height (approx 80px)
-          const yOffset = -80 
-          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+          const yOffset = -100 // Navbar height + extra breathing room
+          const targetY = element.getBoundingClientRect().top + window.pageYOffset + yOffset
           
-          window.scrollTo({ top: y, behavior: 'smooth' })
+          // Framer Motion spring animation for "luxury" feel
+          animate(window.scrollY, targetY, {
+            type: "spring",
+            stiffness: 45,  // Lower = smoother/slower
+            damping: 20,    // Controls the bounce
+            mass: 1,
+            onUpdate: (latest) => window.scrollTo(0, latest),
+          })
         }
-      }, 100)
+      }, 200) 
       return () => clearTimeout(timeoutId)
     } else {
-      // If no hash, scroll to top on page change
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      // Standard scroll to top on page navigation
+      window.scrollTo({ top: 0, behavior: 'auto' })
     }
   }, [pathname, hash])
 
@@ -51,11 +58,11 @@ const ScrollToHash = () => {
 const PageWrapper = ({ children }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ 
-        duration: 0.5, 
+        duration: 0.6, 
         ease: [0.22, 1, 0.36, 1] 
       }}
     >
@@ -67,7 +74,6 @@ const PageWrapper = ({ children }) => {
 function HomePage() {
   return (
     <PageWrapper>
-      {/* Ensure IDs here match your Navbar hrefs (e.g., id="services") */}
       <section id="hero"><Hero /></section>
       <Philosophy />
       <section id="services"><Services /></section>
@@ -87,7 +93,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-dark">
-      {/* Handles smooth scrolling to #ids across all pages */}
       <ScrollToHash />
 
       <Preloader onComplete={() => setIsLoading(false)} />
@@ -99,8 +104,7 @@ function App() {
       >
         <Navbar />
         
-        <AnimatePresence mode="wait">
-          {/* Note: we use location.pathname as key so transitions only trigger on page changes, not hash changes */}
+        <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage />} />
             <Route 
