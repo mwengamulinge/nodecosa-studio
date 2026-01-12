@@ -90,9 +90,7 @@ const Hero = () => {
             variants={itemVariants}
             className="text-lg md:text-xl text-muted max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            Nodecosa is a high-velocity engineering studio. We build AI-native, 
-            edge-distributed, and zero-debt applications for founders who refuse 
-            to settle for "good enough."
+            Nodecosa is a high-velocity engineering studio. We build high-performance websites, custom applications, and seamless API integrations for businesses that need to scale fast
           </motion.p>
 
           {/* CTAs */}
