@@ -80,9 +80,9 @@ const Hero = () => {
             variants={itemVariants}
             className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-headline leading-[0.95] mb-8"
           >
-            Software at the
+            We build, launch, and maintain
             <br />
-            <span className="text-gradient">speed of thought.</span>
+            <span className="text-gradient">your software in weeks.</span>
           </motion.h1>
 
           {/* Sub-headline */}
@@ -103,7 +103,7 @@ const Hero = () => {
               href="#contact"
               className="group inline-flex items-center gap-2 px-8 py-4 bg-primary-500 hover:bg-primary-400 text-dark font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25"
             >
-              <span>Ship your project</span>
+              <span>Start Your Project</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
             </a>
             
