@@ -10,26 +10,26 @@ const Services = () => {
     {
       icon: Database,
       title: 'Custom Web Applications',
-      description: 'Robust, scalable apps built with modern stacks (React, Next.js). We handle the complex logic so you can handle the business.',
-      tag: 'INFRASTRUCTURE',
+      description: `Robust, scalable apps built with modern stacks (React, Next.js). We handle the complex logic so you can handle the business.`,
+      tag: 'APPLICATIONS', // Updated from INFRASTRUCTURE to be less technical
     },
     {
       icon: Monitor,
       title: 'High-Converting Websites',
-      description: 'Fast-loading, SEO-optimized websites that don't just look good—they turn visitors into customers.',
-      tag: 'INTERFACES',
+      description: `Fast-loading, SEO-optimized websites that don't just look good—they turn visitors into customers.`,
+      tag: 'WEBSITES', // Updated from INTERFACES
     },
     {
       icon: Sparkles,
       title: 'API & System Integrations',
-      description: 'We connect your tools. Whether it's payment gateways, CRM syncing, or custom AI pipelines, we make your software talk to each other.',
-      tag: 'AI / ML',
+      description: `We connect your tools. Whether it's payment gateways, CRM syncing, or custom AI pipelines, we make your software talk to each other.`,
+      tag: 'INTEGRATIONS', // Updated from AI / ML
     },
     {
       icon: RefreshCw,
       title: 'Website Maintenance',
-      description: 'Stop worrying about updates or crashes. We provide 24/7 monitoring, security patches, and performance tuning for total peace of mind.',
-      tag: 'REFACTORING',
+      description: `Stop worrying about updates or crashes. We provide 24/7 monitoring, security patches, and performance tuning for total peace of mind.`,
+      tag: 'MAINTENANCE', // Updated from REFACTORING
     },
   ]
 
