@@ -9,26 +9,26 @@ const Services = () => {
   const services = [
     {
       icon: Database,
-      title: 'Hyper-Scale Backends',
-      description: 'Hardened API layers and real-time databases built on Supabase and PostgreSQL.',
+      title: 'Custom Web Applications',
+      description: 'Robust, scalable apps built with modern stacks (React, Next.js). We handle the complex logic so you can handle the business.',
       tag: 'INFRASTRUCTURE',
     },
     {
       icon: Monitor,
-      title: 'High-Fidelity Frontends',
-      description: 'Next.js and React interfaces that feel like native desktop apps.',
+      title: 'High-Converting Websites',
+      description: 'Fast-loading, SEO-optimized websites that don't just look good—they turn visitors into customers.',
       tag: 'INTERFACES',
     },
     {
       icon: Sparkles,
-      title: 'Intelligence Layers',
-      description: 'Custom Gemini and OpenAI integrations that automate complex business logic.',
+      title: 'API & System Integrations',
+      description: 'We connect your tools. Whether it's payment gateways, CRM syncing, or custom AI pipelines, we make your software talk to each other.',
       tag: 'AI / ML',
     },
     {
       icon: RefreshCw,
-      title: 'Product Modernization',
-      description: 'Transforming monolithic "spaghetti" code into modular, type-safe microservices.',
+      title: 'Website Maintenance',
+      description: 'Stop worrying about updates or crashes. We provide 24/7 monitoring, security patches, and performance tuning for total peace of mind.',
       tag: 'REFACTORING',
     },
   ]
@@ -67,9 +67,9 @@ const Services = () => {
         >
           <span className="kicker mb-4 block">// 03. CAPABILITIES</span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-headline mb-6">
-            Engineering,
+            Everything you need
             <br />
-            <span className="text-muted">not just "Coding."</span>
+            <span className="text-muted"> to scale your digital presence</span>
           </h2>
           <p className="text-muted text-lg max-w-xl">
             We don't just write code. We architect systems designed to grow with your business.
